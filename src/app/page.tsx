@@ -7,12 +7,14 @@ import MarqueeButton from "./components/MarqueeButton";
 
 export default function Home() {
   return (
-    <div className="flex flex-col items-center justify-center h-screen">
-    <ButtonAnimated pageHref="/sobre" />
-    <MarqueeButton />
-    <ButtonFadeUp />
-    <ButtonFadeUpOnce />
-    <ButtonFadeUpSimple />
+    <div className="flex flex-col gap-4 items-center justify-center h-screen">
+
+      // ButtonAnimated pageHref="/sobre"
+
+      <MarqueeButton />
+      <ButtonFadeUp />
+      <ButtonFadeUpOnce />
+      <ButtonFadeUpSimple />
     </div>
   );
 }
