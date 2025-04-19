@@ -1,4 +1,4 @@
-import ButtonAnimated from "./components/ButtonAnimated";
+
 import ButtonFadeUp from "./components/ButtonFadeUp";
 import ButtonFadeUpOnce from "./components/ButtonFadeUpOnce";
 import ButtonFadeUpSimple from "./components/ButtonFadeUpSimple";
