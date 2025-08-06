@@ -1,16 +1,22 @@
 "use client"
 import React, { useState, useEffect } from 'react'
+import './MenuFooter.scss'
+import { motion } from 'framer-motion'
 
 const SECTIONS = [
-  { id: 'home', label: 'Home' },
   { id: 'about', label: 'About' },
   { id: 'projects', label: 'Projects' },
   { id: 'contact', label: 'Contact' }
 ]
 
+// All sections that should be observed (including home)
+const ALL_SECTIONS = [
+  { id: 'home', label: 'Home' },
+  ...SECTIONS
+]
+
 export default function MenuFooter() {
   const [activeSection, setActiveSection] = useState('home')
-  const [hoveredSection, setHoveredSection] = useState<string | null>(null)
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId)
@@ -35,59 +41,60 @@ export default function MenuFooter() {
       }
     )
 
-    SECTIONS.forEach(sectionId => {
+    ALL_SECTIONS.forEach(sectionId => {
       const element = document.getElementById(sectionId.id)
       if (element) observer.observe(element)
     })
 
     return () => {
-      SECTIONS.forEach(sectionId => {
+      ALL_SECTIONS.forEach(sectionId => {
         const element = document.getElementById(sectionId.id)
         if (element) observer.unobserve(element)
       })
     }
   }, [])
 
-  const isLabelVisible = (sectionId: string) => {
-    return (activeSection === sectionId && !hoveredSection) || hoveredSection === sectionId
-  }
+  // Check if current active section is in the SECTIONS array
+  const isInSectionsArray = SECTIONS.some(section => section.id === activeSection)
 
   return (
-    <div className="fixed bottom-4 left-[50%] translate-x-[-50%] z-50">
-      <div className="flex justify-center items-end">
+    <motion.div 
+      className="menu-footer__container"
+      animate={{
+        x: !isInSectionsArray ? 200 : 0
+      }}
+      transition={{
+        type: "spring",
+        stiffness: 100,
+        damping: 30
+      }}
+    >
+      <div className="menu-footer__item">
         {SECTIONS.map((section) => (
           <div 
+            onClick={() => scrollToSection(section.id)}
             key={section.id} 
-            className="flex flex-col items-center w-6 group"
-            onMouseEnter={() => setHoveredSection(section.id)}
-            onMouseLeave={() => setHoveredSection(null)}
+            className="menu-footer__item-group"
           >
             {/* Label */}
-            <div 
-              className={`transition-all duration-500 ease-in-out transform mb-1 ${
-                isLabelVisible(section.id)
-                  ? 'opacity-100 translate-y-0' 
-                  : 'opacity-0 -translate-y-2 pointer-events-none'
-              }`}
-            >
-              <div className="text-neutral-400 font-regular text-xs mix-blend-difference whitespace-nowrap">
+            <div className="menu-footer__item-label">
+              <div className="menu-footer__item-label-text">
                 {section.label}
               </div>
             </div>
             
             {/* Pill */}
             <button
-              onClick={() => scrollToSection(section.id)}
-              className={`transition-all duration-1000 ease-in-out transform rounded-full ${
+              className={`menu-footer__item-pill ${
                 activeSection === section.id 
-                  ? 'h-6 w-3 bg-[#D9D9D9]/50' 
-                  : 'h-5 w-3 bg-[#E8E8E8]/50 hover:bg-[#D9D9D9]/50'
-              } backdrop-blur-lg`}
+                  ? 'menu-footer__item-pill-active' 
+                  : 'menu-footer__item-pill-inactive'
+              }`}
               title={section.label}
             />
           </div>
         ))}
       </div>
-    </div>
+    </motion.div>
   )
 }

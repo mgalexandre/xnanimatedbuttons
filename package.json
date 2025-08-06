@@ -9,11 +9,14 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "gsap": "^3.12.7",
+    "framer-motion": "^12.23.12",
+    "gsap": "^3.13.0",
     "motion": "^12.23.12",
     "next": "15.2.5",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "saas": "^1.0.0",
+    "sass": "^1.90.0",
     "split-type": "^0.3.4"
   },
   "devDependencies": {

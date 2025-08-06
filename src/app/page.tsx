@@ -2,18 +2,20 @@
 
 import ButtonFadeUp from "./components/ButtonFadeUp";
 import MarqueeButton from "./components/MarqueeButton";
-import Navbar from "./components/Navbar";
 import MenuFooter from "./components/MenuFooter";
+import NavbarBottom from "./components/NavbarBottom";
 
 // ButtonAnimated pageHref="/sobre"
 
 export default function Home() {
   return (
     <>
-      <Navbar />
+      <section className="flex flex-col gap-4 items-center justify-center h-screen bg-pink-500">
+        <NavbarBottom />
+      </section>
       
       {/* Home Section */}
-      <section id="home" className="flex flex-col gap-4 items-center justify-center h-screen">
+      <section id="home" className="flex flex-col gap-4 items-center justify-center h-screen z-[100]">
         <MarqueeButton />
         <ButtonFadeUp href="/sobre" variant="fadeUp">Sign up</ButtonFadeUp>
         <ButtonFadeUp href="/sobre" variant="fadeUpOnce">Sign in</ButtonFadeUp>
